@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day Surprise</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Pacifico">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Courier New', Courier, monospace;
+            background-color: #ffbdbd; /* Soft red theme */
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        button {
+            background-color: #ff6b6b; /* Red theme */
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: all 0.3s ease;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button:hover {
+            background-color: #e74c3c; /* Darker red on hover */
+        }
+
+        .popup {
+            display: none; /* Initially hide all popups */
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff; /* White background */
+            padding: 5%;
+            border-radius: 20px;
+            text-align: center;
+            z-index: 999;
+            font-family: 'Pacifico', cursive;
+            width: 80%; /* Adjusted width */
+            max-width: 400px; /* Max width */
+            height: auto; /* Auto height */
+            animation: popupFadeIn 0.5s ease forwards;
+        }
+
+        @keyframes popupFadeIn {
+            from { opacity: 0; transform: translate(-50%, -50%) scale(0.5); }
+            to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+        }
+
+        .popup .content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+
+        .popup h2 {
+            font-size: 30px;
+            margin-bottom: 20px;
+            color: #e74c3c; /* Darker red */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Text shadow */
+        }
+
+        .popup p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        .popup img {
+            max-width: 100%; /* Max width to fit within the popup */
+            max-height: 70%; /* Adjusted max-height */
+            border-radius: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px; /* Added margin */
+            object-fit: contain;
+        }
+
+        .popup .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: auto;
+        }
+
+        .popup button {
+            font-size: 18px;
+            padding: 12px 25px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup button.yes {
+            background-color: #27ae60; /* Green theme */
+            color: #fff;
+        }
+
+        .popup button.no {
+            background-color: #f39c12; /* Orange theme */
+            color: #fff;
+        }
+
+        .popup button.yes:hover {
+            background-color: #2ecc71; /* Darker green on hover */
+        }
+
+        .popup button.no:hover {
+            background-color: #e67e22; /* Darker orange on hover */
+        }
+
+        /* Increase size of the "OK, you hurt me" popup */
+        #hurtPopup .content {
+            padding: 80px; /* Increased padding */
+        }
+
+        #hurtPopup h2 {
+            font-size: 36px; /* Increased font size */
+        }
+
+        /* Media Queries */
+        @media only screen and (max-width: 768px) {
+            .popup {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <button id="aditiButton" onclick="startSurprise()">Hey Anjli, Click Here!</button>
+
+    <!-- Popup for Aditi -->
+    <div class="popup" id="aditiPopup">
+        <div class="content">
+            <h2>Anjli, Will you accept this?!</h2>
+            <img src="https://static.vecteezy.com/system/resources/previews/018/922/270/non_2x/3d-rendering-cartoon-couple-character-image-png.png" alt="GIF for Aditi" style="max-width: 100%; max-height: 200px;">
+            <div class="button-container">
+                <button class="yes" onclick="showRoseDayPopup()">Yes</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Popup for 7th Day -->
+    <div class="popup" id="roseDayPopup">
+        <div class="content">
+            <h2>Happy Rose Day!</h2>
+            <p>Will you accept my rose?</p>
+            <img src="https://media.tenor.com/2csFlkJ3TyAAAAAi/tkthao219-bubududu.gif" alt="Rose GIF" id="roseGif">
+            <div class="button-container">
+                <button class="yes" onclick="showProposeDayPopup()">Yes, I will</button>
+                <button class="no" onclick="showHurtPopup()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 8th Day -->
+    <div class="popup" id="proposeDayPopup">
+        <div class="content">
+            <h2>Happy Propose Day!</h2>
+            <p>Will you be mine?</p>
+            <img src="https://media1.tenor.com/m/uyar1kv6IdIAAAAC/i-love-you-love.gif" alt="Ring GIF">
+            <div class="button-container">
+                <button class="yes" onclick="showChocolateDayPopup()">Yes, I will</button>
+                <button class="no" onclick="showHurtPopup()">Not interested</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 9th Day -->
+    <div class="popup" id="chocolateDayPopup">
+        <div class="content">
+            <h2>Happy Chocolate Day!</h2>
+            <p>Here's some chocolate for you!</p>
+            <img src="https://media.tenor.com/_fS3Q8OxS5EAAAAi/130718-chocolate.gif" alt="Chocolate GIF">
+            <div class="button-container">
+                <button class="yes" onclick="showTeddyDayPopup()">Thank you</button>
+                <button class="no" onclick="showHurtPopup()">No, I don't want</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 10th Day -->
+    <div class="popup" id="teddyDayPopup">
+        <div class="content">
+            <h2>Happy Teddy Day!</h2>
+            <p>Will you be my Teddy?</p>
+            <img src="https://media1.tenor.com/m/yNFbO-SVaVAAAAAC/panda-bear-brown-bear.gif" alt="Teddy GIF">
+            <div class="button-container">
+                <button class="yes" onclick="showPromiseDayPopup()">Yes, why not</button>
+                <button class="no" onclick="showHurtPopup()">No, thanks</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 11th Day -->
+    <div class="popup" id="promiseDayPopup">
+        <div class="content">
+            <h2>Happy Promise Day!</h2>
+            <p>I promise to love you forever!</p>
+            <img src="https://i.pinimg.com/originals/73/6c/65/736c652dcaad256f97c9fbc9021ed900.gif" alt="Promise GIF">
+            <div class="button-container">
+                <button class="yes" onclick="showHugDayPopup()">I promise too</button>
+                <button class="no" onclick="showHurtPopup()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 12th Day -->
+    <div class="popup" id="hugDayPopup">
+        <div class="content">
+            <h2>Happy Hug Day!</h2>
+            <p>Here's a warm hug for you!</p>
+            <img src="https://media1.tenor.com/m/JKo6Z5x3slYAAAAC/hug-extasyxx.gif" alt="Hug GIF">
+            <div class="button-container">
+                <button class="yes" onclick="showKissDayPopup()">Thank you</button>
+                <button class="no" onclick="showHurtPopup()">No, thanks</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 13th Day -->
+    <div class="popup" id="kissDayPopup">
+        <div class="content">
+            <h2>Happy Kiss Day!</h2>
+            <p>Can I have a kiss?</p>
+            <img src="https://media1.tenor.com/m/MCiaUm87TkoAAAAC/mm.gif" alt="Kiss GIF">
+            <div class="button-container">
+                <button class="yes" onclick="showValentineDayPopup()">Sure</button>
+                <button class="no" onclick="showHurtPopup()">No</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for 14th Day -->
+    <div class="popup" id="valentineDayPopup">
+        <div class="content">
+            <h2>Happy Valentine's Day!</h2>
+            <p>I love you!</p>
+            <img src="https://media.tenor.com/06iSs_3lROEAAAAi/couples-i-love-you.gif" alt="Love GIF">
+            <div class="button-container">
+                <button class="yes" onclick="NewPopup()">I love you too</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Popup for Hurt Message -->
+    <div class="popup" id="hurtPopup">
+        <div class="content">
+            <h2>Ok, you hurt me</h2>
+            <img src="https://media1.tenor.com/m/cNnWTqiM1F0AAAAC/silent-tears.gif" alt="Hurt GIF" style="width: 80%; max-height: 70%;">
+            <div class="button-container">
+                <button onclick="closePopup()">OK</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function startSurprise() {
+            document.getElementById('aditiButton').style.display = 'none'; // Hide the button
+            hideAllPopups();
+            document.getElementById('aditiPopup').style.display = 'block';
+        }
+
+        function showRoseDayPopup() {
+            hideAllPopups();
+            document.getElementById('roseDayPopup').style.display = 'block';
+        }
+
+        function showProposeDayPopup() {
+            hideAllPopups();
+            document.getElementById('proposeDayPopup').style.display = 'block';
+        }
+
+        function showChocolateDayPopup() {
+            hideAllPopups();
+            document.getElementById('chocolateDayPopup').style.display = 'block';
+        }
+
+        function showTeddyDayPopup() {
+            hideAllPopups();
+            document.getElementById('teddyDayPopup').style.display = 'block';
+        }
+
+        function showPromiseDayPopup() {
+            hideAllPopups();
+            document.getElementById('promiseDayPopup').style.display = 'block';
+        }
+
+        function showHugDayPopup() {
+            hideAllPopups();
+            document.getElementById('hugDayPopup').style.display = 'block';
+        }
+
+        function showKissDayPopup() {
+            hideAllPopups();
+            document.getElementById('kissDayPopup').style.display = 'block';
+        }
+
+        function showValentineDayPopup() {
+            hideAllPopups();
+            document.getElementById('valentineDayPopup').style.display = 'block';
+        }
+
+        function showHurtPopup() {
+            hideAllPopups();
+            document.getElementById('hurtPopup').style.display = 'block';
+        }
+
+        function closePopup() {
+            document.querySelectorAll('.popup').forEach(popup => {
+                popup.style.display = 'none';
+            });
+        }
+
+        function hideAllPopups() {
+            document.querySelectorAll('.popup').forEach(popup => {
+                popup.style.display = 'none';
+            });
+        }
+    </script>
+</body>
+</html>
